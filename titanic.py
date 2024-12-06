@@ -68,6 +68,11 @@ for c in category1:
     bar_plot(c)
 
 
+category2 = ["Name","Ticket","Cabin"]
+
+for c in category2:
+    print("{} \n".format(train_df[c].value_counts()))
+
 
 
 
