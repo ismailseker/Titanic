@@ -72,8 +72,20 @@ category2 = ["Name","Ticket","Cabin"]
 
 for c in category2:
     print("{} \n".format(train_df[c].value_counts()))
+    
+def hist_plot(variable):
+    plt.figure(figsize=(9,3))
+    plt.hist(train_df[variable])
+    plt.xlabel(variable)
+    plt.ylabel("Frequency")
+    plt.title("{} distrubution histogram".format(variable))
+    plt.show()
+    
+numericVar = ["Fare","Age","PassengerId"]
 
-
+for n in numericVar:
+    hist_plot(n)
+    
 
 
     
