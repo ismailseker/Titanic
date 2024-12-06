@@ -36,3 +36,43 @@ test_PassengerId = test_df['PassengerId']
 # Embarked : port where passenger embarked (C = cherbourg,Q = queenstown, S = southempton)
 
 train_df.info()
+
+# dtypes: float64(2), int64(5), object(5)
+
+# float: Fare and Age
+# int: pclass,sibsp,parch,passngerId and survived
+# object: cabin, embarked,ticket, name and sex
+
+
+# %% Univariate Variable Anaylsis
+
+# Categorical: Survived,Sex,Embarked,Pclass,Name,Ticket,Cabin,Sibsp and parch
+# Numerical: Fare,Age,passngerId
+
+def bar_plot(variable):
+    
+    var = train_df[variable]
+    varValue = var.value_counts()
+        
+    plt.figure(figsize=(9,3))
+    plt.bar(varValue.index, varValue)
+    plt.xticks(varValue.index,varValue.index.values)
+    plt.ylabel("Frequency")
+    plt.title(variable)
+    plt.show()    
+    print("{}: \n {}".format(variable,varValue))
+
+category1 = ["Survived","Sex","Pclass","Embarked","SibSp","Parch"]
+
+for c in category1:
+    bar_plot(c)
+
+
+
+
+
+    
+    
+
+
+
