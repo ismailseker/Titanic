@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from collections import Counter
+
 
 plt.style.use('seaborn-v0_8-whitegrid')
 
@@ -107,6 +109,36 @@ train_df[["SibSp","Survived"]].groupby(["SibSp"],as_index = False).mean().sort_v
 # Parch VS Survived Analysis
 train_df[["Parch","Survived"]].groupby(["Parch"],as_index = False).mean().sort_values(by="Survived",ascending = False)
 
+
+# %% Outlier Detection
+
+def detectOutlier(df,features):
+    outlier_indices = []
+    for c in features:
+        # 1st quartile
+        Q1 = np.percentile(df[c], 25)
+        # 3rd quartile
+        Q3 = np.percentile(df[c], 75)
+        # IQR
+        IQR = Q3 - Q1
+        # Outlier Step
+        outlier_step = IQR * 1.5
+        # Detect outlier and their indeces
+        outlier_list_cols = df[(df[c] < Q1 - outlier_step) | (df[c] > Q3 + outlier_step)].index
+        # Store indices
+        outlier_indices.extend(outlier_list_cols)
+        
+    outlier_indices = Counter(outlier_indices)
+    multiple_outliers = list (i for i,v in outlier_indices.items() if v > 2)
+    print(Counter(outlier_indices))
+    
+    return multiple_outliers
+
+train_df.loc[detectOutlier(train_df,["Age","SibSp","Parch","Fare"])]
+
+# Drop Outlier
+train_df = train_df.drop(detectOutlier(train_df,["Age","SibSp","Parch","Fare"]),axis = 0).reset_index(drop = True)
+        
     
 
 
