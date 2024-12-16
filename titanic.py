@@ -85,10 +85,28 @@ numericVar = ["Fare","Age","PassengerId"]
 
 for n in numericVar:
     hist_plot(n)
-    
 
+# %% Basic Data Analysis
+     
+# Pclass - survived
+# Sex - survived
+# SibSp - survived
+# Parch - survived
 
-    
+# PRINT AND CHECK RESULT
+
+# Pclass VS Survived Analysis
+train_df[["Pclass","Survived"]].groupby(["Pclass"],as_index = False).mean().sort_values(by="Survived",ascending = False)
+
+# Sex VS Survived Analysis
+train_df[["Sex","Survived"]].groupby(["Sex"],as_index = False).mean().sort_values(by="Survived",ascending = False)
+
+# SibSp VS Survived Analysis
+train_df[["SibSp","Survived"]].groupby(["SibSp"],as_index = False).mean().sort_values(by="Survived",ascending = False)
+
+# Parch VS Survived Analysis
+train_df[["Parch","Survived"]].groupby(["Parch"],as_index = False).mean().sort_values(by="Survived",ascending = False)
+
     
 
 
