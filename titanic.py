@@ -162,6 +162,14 @@ train_df[train_df["Fare"].isnull()]
 np.mean(train_df[train_df["Pclass"] == 3]["Fare"])
 train_df["Fare"] = train_df["Fare"].fillna(np.mean(train_df[train_df["Pclass"] == 3]["Fare"]))
     
+# %% Visulazation
 
+# Correlation between SibSp -- Parch -- Age -- Fare -- Survived
+
+list1=["SibSp","Parch","Age","Fare","Survived"]
+sns.heatmap(train_df[list1].corr(), annot=True, fmt =".2f")
+plt.show()
+
+# Result : Fare features seems to have correlation with survived feature (0.26).
 
 
