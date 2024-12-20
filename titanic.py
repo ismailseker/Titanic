@@ -138,7 +138,29 @@ train_df.loc[detectOutlier(train_df,["Age","SibSp","Parch","Fare"])]
 
 # Drop Outlier
 train_df = train_df.drop(detectOutlier(train_df,["Age","SibSp","Parch","Fare"]),axis = 0).reset_index(drop = True)
-        
+
+# %% Missing Value
+
+train_df_len = len(train_df)
+train_df = pd.concat([train_df,test_df],axis=0).reset_index(drop=True)
+# Find Missing Value
+train_df.columns[train_df.isnull().any()]
+train_df.isnull().sum()
+
+# Embark has 2 missing value, Fare has 1
+
+# Fill Missing Value
+
+train_df[train_df["Embarked"].isnull()]
+train_df.boxplot(column="Fare", by = "Embarked")
+plt.show()
+
+train_df["Embarked"] = train_df["Embarked"].fillna("C")
+train_df[train_df["Embarked"].isnull()]
+
+train_df[train_df["Fare"].isnull()]
+np.mean(train_df[train_df["Pclass"] == 3]["Fare"])
+train_df["Fare"] = train_df["Fare"].fillna(np.mean(train_df[train_df["Pclass"] == 3]["Fare"]))
     
 
 
