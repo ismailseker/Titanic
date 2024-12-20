@@ -172,4 +172,13 @@ plt.show()
 
 # Result : Fare features seems to have correlation with survived feature (0.26).
 
+# SipSp -- Survived
+
+g = sns.catplot(x = "SibSp",y = "Survived",data = train_df,kind = "bar",height = 6)
+g.set_ylabels("Survived Probability")
+plt.show()
+
+# Having a lotf of SibSp causes less chance to survive.
+# If SibSp = 0 or 1 or 2, passenger has more chance to survive.
+# We can consider a new feature describing categories
 
