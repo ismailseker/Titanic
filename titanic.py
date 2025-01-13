@@ -172,6 +172,8 @@ plt.show()
 
 # Result : Fare features seems to have correlation with survived feature (0.26).
 
+# %% Feature Analysis
+
 # SipSp -- Survived
 
 g = sns.catplot(x = "SibSp",y = "Survived",data = train_df,kind = "bar",height = 6)
@@ -181,4 +183,15 @@ plt.show()
 # Having a lotf of SibSp causes less chance to survive.
 # If SibSp = 0 or 1 or 2, passenger has more chance to survive.
 # We can consider a new feature describing categories
+
+# Parch Survived
+
+g = sns.catplot(x = "Parch", y = "Survived", kind= "bar",data = train_df, height = 6)
+g.set_ylabels("Survived Prob")
+plt.show()
+
+# Sibsp and parch can be used for new feature extraction with th = 3
+# small familes have more chance to survive.
+# there is a std in survival of passenger with parch = 3
+
 
