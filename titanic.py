@@ -206,6 +206,13 @@ g = sns.FacetGrid(train_df, col = "Survived")
 g.map(sns.distplot, "Age", bins = 25)
 plt.show()
 
+# age <= 10 has a high survival rate,
+# oldest passengers (80) survived,
+# large number of 20 years old did not survive,
+# most passengers are in 15-35 age range,
+# use age feature in training
+# use age distribution for missing value of age
+
 # Pclass -- Survived -- Age
 
 g = sns.FacetGrid(train_df, col = "Survived", row = "Pclass", height = 2)
@@ -213,9 +220,34 @@ g.map(plt.hist, "Age", bins = 25)
 g.add_legend()
 plt.show()
 
+# pclass is important feature for model training.
+
+
 # Embarked -- Sex -- Pclass -- Survived
 
 g = sns.FacetGrid(train_df, row = "Embarked", height = 2)
 g.map(sns.pointplot, "Pclass","Survived","Sex")
 g.add_legend()
 plt.show()
+
+# Female passengers have much better survival rate than males.
+# males have better survşval rate in pclass 3 in C.
+# embarked and sex will be used in training.
+
+# Embarked -- Sex -- Fare -- Survived
+
+g = sns.FacetGrid(train_df, row = "Embarked", col = "Survived", size = 2.3)
+g.map(sns.barplot, "Sex", "Fare")
+g.add_legend()
+plt.show()
+
+# Passsengers who pay higher fare have better survival. Fare can be used as categorical for training.
+
+
+
+
+
+
+
+
+
