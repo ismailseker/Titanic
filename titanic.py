@@ -194,4 +194,28 @@ plt.show()
 # small familes have more chance to survive.
 # there is a std in survival of passenger with parch = 3
 
+# Pclass -- Survived 
 
+g = sns.catplot(x = "Pclass", y = "Survived", data = train_df, kind = "bar", height = 6)
+g.set_ylabels("Survived Probability")
+plt.show()
+
+# Age -- Survived
+
+g = sns.FacetGrid(train_df, col = "Survived")
+g.map(sns.distplot, "Age", bins = 25)
+plt.show()
+
+# Pclass -- Survived -- Age
+
+g = sns.FacetGrid(train_df, col = "Survived", row = "Pclass", height = 2)
+g.map(plt.hist, "Age", bins = 25)
+g.add_legend()
+plt.show()
+
+# Embarked -- Sex -- Pclass -- Survived
+
+g = sns.FacetGrid(train_df, row = "Embarked", height = 2)
+g.map(sns.pointplot, "Pclass","Survived","Sex")
+g.add_legend()
+plt.show()
