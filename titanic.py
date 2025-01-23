@@ -236,12 +236,31 @@ plt.show()
 
 # Embarked -- Sex -- Fare -- Survived
 
-g = sns.FacetGrid(train_df, row = "Embarked", col = "Survived", size = 2.3)
+g = sns.FacetGrid(train_df, row = "Embarked", col = "Survived", height= 2.3)
 g.map(sns.barplot, "Sex", "Fare")
 g.add_legend()
 plt.show()
 
 # Passsengers who pay higher fare have better survival. Fare can be used as categorical for training.
+
+# %% Fill missing : Age Feature
+
+print(train_df[train_df["Age"].isnull()]["Age"])
+
+sns.catplot(x = "Sex", y = "Age", data = train_df, kind = "box")
+plt.show()
+
+# Sex is not informative for age prediction, age distribution seems to be same.
+
+sns.catplot(x = "Sex", y = "Age", hue = "Pclass",data = train_df, kind = "box")
+plt.show()
+
+# 1st class passengers are older than 2nd, and 2nd is older than 3rd class.
+
+sns.catplot(x = "Parch", y = "Age", data = train_df, kind = "box")
+sns.catplot(x = "SibSp", y = "Age", data = train_df, kind = "box")
+plt.show()
+
 
 
 
