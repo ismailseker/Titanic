@@ -260,12 +260,25 @@ plt.show()
 sns.catplot(x = "Parch", y = "Age", data = train_df, kind = "box")
 sns.catplot(x = "SibSp", y = "Age", data = train_df, kind = "box")
 plt.show()
+# %% Convert "male and female strings" to the numerical values
+train_df["Sex"] = [1 if i == "male" else 0 for i in train_df["Sex"]]
 
+sns.heatmap(train_df[["Age","Sex","SibSp","Parch","Pclass"]].corr(),annot=True)
+plt.show()
 
+# Age is not correlated with sex but it is correlated with parch,pclass and sibsp
 
+index_nan_age = list(train_df["Age"][train_df["Age"].isnull()].index)
+print(index_nan_age)
 
-
-
+for i in index_nan_age:
+    age_pred = train_df["Age"][((train_df["SibSp"] == train_df.iloc[i]["SibSp"]) &(train_df["Parch"] == train_df.iloc[i]["Parch"])& (train_df["Pclass"] == train_df.iloc[i]["Pclass"]))].median()
+    age_med = train_df["Age"].median()
+    
+    if not np.isnan(age_pred):
+        train_df["Age"].iloc[i] = age_pred
+    else:
+        train_df["Age"].iloc[i] = age_med
 
 
 
