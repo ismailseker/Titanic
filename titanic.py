@@ -280,5 +280,51 @@ for i in index_nan_age:
     else:
         train_df["Age"].iloc[i] = age_med
 
+# %% Feature Engineering
+
+print(train_df["Name"].head(10))
+
+name = train_df["Name"]
+train_df["Title"] = [i.split(".")[0].split(",")[-1].strip() for i in name]
+
+train_df["Title"].head(10)
+
+sns.countplot(x="Title", data = train_df)
+plt.xticks(rotation = 60)
+plt.show()
+
+# convert to categorical
+train_df["Title"] = train_df["Title"].replace(["Lady","the Countess","Capt","Col","Don","Dr","Major","Rev","Sir","Jonkheer","Dona"],"other")
+train_df["Title"] = [0 if i == "Master" else 1 if i == "Miss" or i == "Ms" or i == "Mlle" or i == "Mrs" else 2 if i == "Mr" else 3 for i in train_df["Title"]]
+train_df["Title"].head(20)
+
+sns.countplot(x="Title", data = train_df)
+plt.xticks(rotation = 60)
+plt.show()
+
+g = sns.catplot(x = "Title", y = "Survived", data = train_df, kind = "bar")
+g.set_xticklabels(["Master","Mrs","Mr","Other"])
+g.set_ylabels("Survival Probability")
+plt.show()
+
+train_df.drop(labels = ["Name"], axis = 1, inplace = True)
+
+print(train_df.head())
+
+train_df = pd.get_dummies(train_df,columns=["Title"])
+train_df.head()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
